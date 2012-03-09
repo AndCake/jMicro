@@ -15,6 +15,7 @@ jMicro is a micro javascript framework with a super-small footprint (1.4k) and c
 
 API Documentation
 -----------------
+
 ::
   jMicro(element) -> Object
   - element (String|Object) - the ID of an element which should be retrieved or the element itself
@@ -22,10 +23,12 @@ API Documentation
 This function retrieves a jMicro object, which wraps an element (DOM or any other). You can then access all the methods that belong to jMicro objects.
 
 *Example*:: 
+
   <div id="mydiv"></div>
   <script type="text/javascript">
   	jMicro("mydiv").appendChild(document.createTextNode("Test"));
   </script>
+
 
 ::
   jMicro#listen(event, callback) -> Object
@@ -34,13 +37,16 @@ This function retrieves a jMicro object, which wraps an element (DOM or any othe
 binds an event listener of the current element to it. Handlers are attached to the currently selected elements in the jMicro object, so those elements must exist at the point the call to .listen() occurs. By returning false within the callback function, event bubbling can be stopped. The functions returns a jMicro object of the element that the event was attached at.
 
 *Example*::
+
   <div id="si">Hello, World!</div>
   <script type="text/javascript">
     $("si").listen("click", function(event) { 
       alert("Clicked!");
     });
   </script> 
+
 This example demonstrates how to attach a click event to a div.
+
 
 ::
   jMicro#css(style) -> Object
@@ -49,11 +55,14 @@ This example demonstrates how to attach a click event to a div.
 Sets the current element's style to the given one. Existing style definitions won't be removed before adding the style definition. The function returns a jMicro object of the element the styles were applied to.
 
 *Example*::
+
   <div id="si" style="color: blue; font-style: italic;">Hello, World!</div>
   <script type="text/javascript">
     jMicro("si").css("color: red");
   </script>
+
 After the function is executed, the color of the text will be red instead of blue, but it will remain italic.
+
 
 ::
   jMicro#down(selector) -> Object
@@ -62,6 +71,7 @@ After the function is executed, the color of the text will be red instead of blu
 retrieves the element given by the CSS selector relative to the current element. The function returns a jMicro object of the element that was retrieved.
 
 *Example*::
+
   <div id="si">
     <ul>
       <li>Test 1</li>
@@ -71,6 +81,7 @@ retrieves the element given by the CSS selector relative to the current element.
   <script type="text/javascript">
     alert( jMicro("si").down("li:last-child").innerHTML );
   </script>
+
 The example will show an alert window with "Test 2" printed on it.
 
 ::
@@ -79,6 +90,7 @@ The example will show an alert window with "Test 2" printed on it.
 Retrieves the current element's parent node and wraps it into a jMicro object. That one is returned.
 
 *Example*::
+
   <div>
     <ul>
       <li>Test 1</li>
@@ -88,7 +100,9 @@ Retrieves the current element's parent node and wraps it into a jMicro object. T
   <script type="text/javascript">
     alert(jMicro("me").up().tagName);
   </script>
+
 The example will show an alert window with "UL" appearing in there, as that is the LI's parent node.
+
 
 ::
   jMicro#remove() -> void
@@ -96,11 +110,14 @@ The example will show an alert window with "UL" appearing in there, as that is t
 Removes the current element from the DOM tree.
 
 *Example*::
+
   <div>Test <p id="me">another one</p></div>
   <script type="text/javascript">
     jMicro("me").remove();
   </script>
+
 The resulting page will only show "Test", as the P tag is completely removed from the DOM.
+
 
 ::
   jMicro.encode(data) -> String
@@ -109,13 +126,16 @@ The resulting page will only show "Test", as the P tag is completely removed fro
 Encodes an array of form elements or a hash map into POST body format / GET parameter format.
 
 *Example*::
+
   <script type="text/javascript">
     alert( jMicro.encode([{
       name: "Test User",
       email: "me@example.org"
     }]) );
   </script>
+
 This example will show an alert window that prints out something like "&name=Test+User&email=me%64example.org".
+
 
 ::
   jMicro#set(content) -> Object
@@ -124,13 +144,15 @@ This example will show an alert window that prints out something like "&name=Tes
 Sets the value attribute or the innerHTML of the current element to the specified value. In case the current element is a form element, it will set it's value attribute, else it will try to set it's innerHTML. The returned object is a jMicro object of the current element.
 
 *Example*::
+
   <div id="me"></div>
   <input type="hidden" name="foo"/>
   <script type="text/javascript">
-    jMicro("me").set("Test").up().down("input").set("bar");
-    
+    jMicro("me").set("Test").up().down("input").set("bar");    
   </script>
+
 This example will set make the DIV tag with ID "me" contain the text "Test" and change the INPUT field to have a value of "bar".
+
 
 ::
   jMicro#get(url[, callback]) -> void
@@ -140,6 +162,7 @@ This example will set make the DIV tag with ID "me" contain the text "Test" and 
 This function will do an AJAX request to load the specified URL. The XMLHttpRequest object is passed to the callback function. If there is a current element, the jMicro#set() function will be called automatically onto it with the responseText as content. This will happen before the callback is executed. 
 
 *Example*::
+
   <input type="text" name="foo" id="me"/>
   <script type="text/javascript">
     jMicro("me").get("bar.txt");
@@ -147,7 +170,9 @@ This function will do an AJAX request to load the specified URL. The XMLHttpRequ
       alert("Loaded: "+req.responseText);
     });
   </script>
+
 This example does two AJAX requests: the first one loads the content of bar.txt into the input field. The second one will show an alert window with the result of another page.
+
 
 ::
   jMicro#post(url, data[, callback]) -> void
@@ -158,6 +183,7 @@ This example does two AJAX requests: the first one loads the content of bar.txt 
 The function will do an AJAX POST request. It will POST the given data to the specified URL. In case a callback function is provided, that one will be called with the first parameter being the XMLHttpRequest object containing the server's answer. If there is a current element, the jMicro#set() function will be called automatically onto it with the responseText as content. This will happen before the callback is executed.
 
 *Example*::
+
   <form id="connectForm">
     <input type="text" name="user" value="test user"/>
     <input type="password" name="pass" value="1234321"/>
@@ -167,5 +193,6 @@ The function will do an AJAX POST request. It will POST the given data to the sp
   <script type="text/javascript">
     jMicro("content").post("cgi-bin/postTarget.cgi", jMicro("connectForm").elements);
   </script>
+
 The example will do a POST request to a CGI page and write the results into the DIV with ID "content". The data that is posted to the server, contains all form fields.
 
