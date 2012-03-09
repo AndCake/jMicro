@@ -28,7 +28,8 @@ This function retrieves a jMicro object, which wraps an element (DOM or any othe
   	jMicro("mydiv").appendChild(document.createTextNode("Test"));
   </script>
 
-----
+|
+|
 | ``jMicro#listen(event, callback) -> Object``
 - event (String) - the event name to add an event listener for (like "click" or "submit")
 
@@ -45,7 +46,8 @@ binds an event listener of the current element to it. Handlers are attached to t
 
 This example demonstrates how to attach a click event to a div.
 
-----
+|
+|
 | ``jMicro#css(style) -> Object``
 
 - style (String) - the CSS style description that should be applied to the current element
@@ -61,7 +63,8 @@ Sets the current element's style to the given one. Existing style definitions wo
 
 After the function is executed, the color of the text will be red instead of blue, but it will remain italic.
 
-----
+|
+|
 | ``jMicro#down(selector) -> Object``
 
 - selector (String) - CSS selector
@@ -82,7 +85,8 @@ retrieves the element given by the CSS selector relative to the current element.
 
 The example will show an alert window with "Test 2" printed on it.
 
-----
+|
+|
 | ``jMicro#up() -> Object``
 
 Retrieves the current element's parent node and wraps it into a jMicro object. That one is returned.
@@ -101,7 +105,8 @@ Retrieves the current element's parent node and wraps it into a jMicro object. T
 
 The example will show an alert window with "UL" appearing in there, as that is the LI's parent node.
 
-----
+|
+|
 | ``jMicro#remove() -> void``
   
 Removes the current element from the DOM tree.
@@ -115,7 +120,8 @@ Removes the current element from the DOM tree.
 
 The resulting page will only show "Test", as the P tag is completely removed from the DOM.
 
-----
+|
+|
 | ``jMicro.encode(data) -> String``
 
 - data (Array|Object) - an array of elements or a hash map containing the data to be encoded
@@ -133,7 +139,8 @@ Encodes an array of form elements or a hash map into POST body format / GET para
 
 This example will show an alert window that prints out something like "&name=Test+User&email=me%64example.org".
 
-----
+|
+|
 | ``jMicro#set(content) -> Object``
 
 - content (String) - the value to set
@@ -150,7 +157,8 @@ Sets the value attribute or the innerHTML of the current element to the specifie
 
 This example will set make the DIV tag with ID "me" contain the text "Test" and change the INPUT field to have a value of "bar".
 
-----
+|
+|
 | ``jMicro#get(url[, callback]) -> void``
 
 - url (String) - the URL to load
@@ -170,7 +178,8 @@ This function will do an AJAX request to load the specified URL. The XMLHttpRequ
 
 This example does two AJAX requests: the first one loads the content of bar.txt into the input field. The second one will show an alert window with the result of another page.
 
-----
+|
+|
 | ``jMicro#post(url, data[, callback]) -> void``
 
 - url (String) - the URL to post to
