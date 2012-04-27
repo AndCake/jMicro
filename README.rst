@@ -1,8 +1,8 @@
 =============
-jMicro v0.0.1
+jMicro v0.0.2
 =============
 
-jMicro is a micro javascript framework with a super-small footprint (1.4k) and capable of doing the most important things that a typical javascript framework should do. This framework is best suited for the mobile sector due to it's size and the fact that it's not fully backwards compatible to old Internet Explorer versions. It has a similar syntax as has PrototypeJS. See the API documentation below. A small example on how this looks like::
+jMicro is a micro javascript framework with a super-small footprint (820 Bytes gzipped) and capable of doing the most important things that a typical javascript framework should do. This framework is best suited for the mobile sector due to it's size and the fact that it's not fully backwards compatible to old Internet Explorer versions. It has a similar syntax to PrototypeJS. See the API documentation below. A small example on how this looks like::
 
   var $ = jMicro;
   // attach a click handler for the mybutton element
@@ -80,7 +80,7 @@ retrieves the element given by the CSS selector relative to the current element.
     </ul>
   </div>
   <script type="text/javascript">
-    alert( jMicro("si").down("li:last-child").innerHTML );
+    alert( jMicro("si").down("li:last-child").get() );
   </script>
 
 The example will show an alert window with "Test 2" printed on it.
@@ -160,6 +160,7 @@ This example will set make the DIV tag with ID "me" contain the text "Test" and 
 |
 |
 | ``jMicro#get([url[, callback]]) -> void|String``
+|
 | ``jMicro.get(url[, callback]) -> void``
 
 - url (String) - the URL to load
@@ -183,6 +184,7 @@ This example does two AJAX requests: the first one loads the content of bar.txt 
 |
 |
 | ``jMicro#post(url, data[, callback]) -> void``
+|
 | ``jMicro.post(url, data[, callback]) -> void``
 
 - url (String) - the URL to post to

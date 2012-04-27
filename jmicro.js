@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2012 Robert Kunze [rk.klatcher at gmail dot com]
+ * Licensed under the MIT license
+ */
 jMicro = function () {
     var value = "value", innerhtml = "innerHTML", readystatechange = "readystatechange", xmlhttprequest = XMLHttpRequest, readystate = 'readyState', responsetext = "responseText", 
 	a = function (element) {
