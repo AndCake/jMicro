@@ -1,4 +1,5 @@
 jMicro = function () {
+	var v = "value", i = "innerHTML";
     var a = function (element) {
             return a.extend(typeof element == "string" && document.getElementById(element) || element, a)
         };
@@ -42,11 +43,12 @@ jMicro = function () {
     };
     a.set = function (a) {
         var b = this;
-        return b._m && (b.value !== undefined && (b.value = a) || (b.innerHTML = a) || (b = a)) && b
+        return b._m && (b[v] !== undefined && (b[v] = a) || (b[i] = a) || (b = a)) && b
     };
     a.get = function (b, callback) {
         var d = this,
             e;
+    	if(!b && !callback)return d[v] || d[i];
         (e = a(new XMLHttpRequest).listen("readystatechange", function (a) {
             e.readyState == 4 && (d.set(e.responseText) || true) && c && c(e)
         })).open("GET", b, true);
@@ -61,5 +63,20 @@ jMicro = function () {
         f.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         f.send(a.encode(c))
     };
+	a.create = function(n, b) {
+		var el = document.createElement(n);
+		for(var i in b) 
+			el[i] = b[i];
+		el = a.extend(el, this);
+		return el;
+	};
+	a.add = function(c) {
+		var d = this;
+		if (typeof(c) != "string")
+			d.appendChild(c);
+		else 
+			d[i] = d[i] + c;
+		return d;
+	};    
     return a
 }();

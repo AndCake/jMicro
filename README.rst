@@ -16,7 +16,7 @@ jMicro is a micro javascript framework with a super-small footprint (1.4k) and c
 API Documentation
 -----------------
 
-| ``jMicro(element) -> Object``
+| ``jMicro(element) -> jMicro``
 - element (String|Object) - the ID of an element which should be retrieved or the element itself
 
 This function retrieves a jMicro object, which wraps an element (DOM or any other). You can then access all the methods that belong to jMicro objects.
@@ -30,7 +30,7 @@ This function retrieves a jMicro object, which wraps an element (DOM or any othe
 
 |
 |
-| ``jMicro#listen(event, callback) -> Object``
+| ``jMicro#listen(event, callback) -> jMicro``
 - event (String) - the event name to add an event listener for (like "click" or "submit")
 
 binds an event listener of the current element to it. Handlers are attached to the currently selected elements in the jMicro object, so those elements must exist at the point the call to .listen() occurs. By returning false within the callback function, event bubbling can be stopped. The functions returns a jMicro object of the element that the event was attached at.
@@ -48,7 +48,7 @@ This example demonstrates how to attach a click event to a div.
 
 |
 |
-| ``jMicro#css(style) -> Object``
+| ``jMicro#css(style) -> jMicro``
 
 - style (String) - the CSS style description that should be applied to the current element
 
@@ -65,7 +65,7 @@ After the function is executed, the color of the text will be red instead of blu
 
 |
 |
-| ``jMicro#down(selector) -> Object``
+| ``jMicro#down(selector) -> jMicro``
 
 - selector (String) - CSS selector
 
@@ -87,7 +87,7 @@ The example will show an alert window with "Test 2" printed on it.
 
 |
 |
-| ``jMicro#up() -> Object``
+| ``jMicro#up() -> jMicro``
 
 Retrieves the current element's parent node and wraps it into a jMicro object. That one is returned.
 
@@ -159,12 +159,13 @@ This example will set make the DIV tag with ID "me" contain the text "Test" and 
 
 |
 |
-| ``jMicro#get(url[, callback]) -> void``
+| ``jMicro#get([url[, callback]]) -> void|String``
+| ``jMicro.get(url[, callback]) -> void``
 
 - url (String) - the URL to load
 - callback (Function) - the callback function to execute once the content has been loaded successfully.
 
-This function will do an AJAX request to load the specified URL. The XMLHttpRequest object is passed to the callback function. If there is a current element, the jMicro#set() function will be called automatically onto it with the responseText as content. This will happen before the callback is executed. 
+This function will do an AJAX request to load the specified URL. The XMLHttpRequest object is passed to the callback function. If there is a current element, the jMicro#set() function will be called automatically onto it with the responseText as content. This will happen before the callback is executed. In case all parameters are omitted, this method will return the current item's content (in case it's a form field, it will be the value, else the content is represented through the tag's innerHTML). 
 
 *Example*::
 
@@ -174,13 +175,15 @@ This function will do an AJAX request to load the specified URL. The XMLHttpRequ
     jMicro.get("cgi-bin/listPages.cgi", function(req) {
       alert("Loaded: "+req.responseText);
     });
+    alert("content of 'me': "+jMicro("me").get());
   </script>
 
-This example does two AJAX requests: the first one loads the content of bar.txt into the input field. The second one will show an alert window with the result of another page.
+This example does two AJAX requests: the first one loads the content of bar.txt into the input field. The second one will show an alert window with the result of another page. The third call of the get function will alert the value of element "me".
 
 |
 |
 | ``jMicro#post(url, data[, callback]) -> void``
+| ``jMicro.post(url, data[, callback]) -> void``
 
 - url (String) - the URL to post to
 - data (Array|Object) - an array of elements or a hash map containing the data to be encoded
@@ -202,3 +205,37 @@ The function will do an AJAX POST request. It will POST the given data to the sp
 
 The example will do a POST request to a CGI page and write the results into the DIV with ID "content". The data that is posted to the server, contains all form fields.
 
+|
+|
+| ``jMicro.create(tagName, attributes) -> jMicro``
+
+- tagName (String) - the name of the tag to be created
+- attributes (Object) - a JSON object describing the attributes the newly created element, should be <name>:<value>
+
+The function creates a new DOM element, but does not add it to the DOM tree. The new element will receive all the attributes given. The DOM element created is wrapped into a jMicro object and returned.
+
+*Example*::
+
+  <script type="text/javascript">
+    var img = jMicro.create("img", {src: "static/images/test.png", alt: ""});
+    jMicro(document.body).add(img);
+  </script>
+
+The example will create a new IMG tag and append it to the document's body.
+
+|
+|
+| ``jMicro#add(data) -> jMicro``
+
+- data (String|jMicro|DOMElement) - the data to be added/appended to the current element
+
+The method appends the given data to the current element. The element the data has been appended to is returned as a jMicro object.
+
+*Example*::
+
+  <div id="content"></div>
+  <script type="text/javascript">
+    jMicro("content").add("test").add(jMicro.create("hr"));
+  </script>
+
+The example will insert the text "test" into the div with the ID "content". After that, it will also add a <HR> tag to it.
