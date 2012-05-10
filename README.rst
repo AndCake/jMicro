@@ -1,8 +1,8 @@
 =============
-jMicro v0.0.2
+jMicro v0.0.3
 =============
 
-jMicro is a micro javascript framework with a super-small footprint (820 Bytes gzipped) and capable of doing the most important things that a typical javascript framework should do. This framework is best suited for the mobile sector due to it's size and the fact that it's not fully backwards compatible to old Internet Explorer versions. It has a similar syntax to PrototypeJS. See the API documentation below. A small example on how this looks like::
+jMicro is a micro javascript framework with a super-small footprint (818 Bytes gzipped) and capable of doing the most important things that a typical javascript framework should do. This framework is best suited for the mobile sector due to it's size and the fact that it's not fully backwards compatible to old Internet Explorer versions. It has a similar syntax to PrototypeJS. See the API documentation below. A small example on how this looks like::
 
   var $ = jMicro;
   // attach a click handler for the mybutton element
