@@ -3,7 +3,7 @@
  * Licensed under the MIT license
  */
 jMicro = function () {
-    var value = "value", innerhtml = "innerHTML", readystatechange = "readystatechange", xmlhttprequest = XMLHttpRequest, readystate = 'readyState', responsetext = "responseText", 
+    var value = "value", innerhtml = "innerHTML", readystatechange = "readystatechange", xmlhttprequest = XMLHttpRequest, readystate = 'readyState', responsetext = "responseText", TRUE = true, FALSE = false,
 	a = function (element) {
             return a.extend(typeof element == "string" && document.getElementById(element) || element, a)
         };
@@ -24,7 +24,7 @@ jMicro = function () {
     a.listen = function (eventName, callback) {
         original = this["on" + eventName];
         this["on" + eventName] = function (event) {
-            return (typeof original != "function" || original(event) !== false) && (callback.apply(this, [event || window.event]) === false ? false : true)
+            return (typeof original != "function" || original(event) !== FALSE) && (callback.apply(this, [event || window.event]) === FALSE ? FALSE : TRUE)
         };
         return this
     };
@@ -63,10 +63,10 @@ jMicro = function () {
     a.get = function (url, callback) {
         var element = this,
             xmlrequest;
-    	if(!url && !callback)return element[value] || element[innerhtml];
+    	if (!url && !callback) return element[value] || element[innerhtml];
         (xmlrequest = a(new xmlhttprequest).listen(readystatechange, function (a) {
-            xmlrequest[readystate] == 4 && (element.set(xmlrequest[responsetext]) || true) && callback && callback(xmlrequest)
-        })).open("GET", url, true);
+            xmlrequest[readystate] == 4 && (element.set(xmlrequest[responsetext]) || TRUE) && callback && callback(xmlrequest)
+        })).open("GET", url, TRUE);
         xmlrequest.send(null)
     };
 
@@ -74,27 +74,27 @@ jMicro = function () {
         var element = this,
             xmlrequest;
         (xmlrequest = a(new xmlhttprequest).listen(readystatechange, function (a) {
-            xmlrequest[readystate] == 4 && (element.set(xmlrequest[responsetext]) || true) && callback && callback(xmlrequest)
-        })).open("POST", url, true);
+            xmlrequest[readystate] == 4 && (element.set(xmlrequest[responsetext]) || TRUE) && callback && callback(xmlrequest)
+        })).open("POST", url, TRUE);
         xmlrequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xmlrequest.send(a.encode(data))
     };
 
     a.create = function(tagName, attributes) {
         var element = document.createElement(tagName),all;
-	for(all in attributes) 
-	    element[all] = attributes[all];
-	element = a.extend(element, this);
-	return element;
+		for (all in attributes) 
+		    element[all] = attributes[all];
+		element = a.extend(element, this);
+		return element;
     };
     
     a.add = function(content) {
         var element = this;
-	if (typeof(content) != "string")
-	    element.appendChild(content);
-	else 
-	    element[innerhtml] = element[innerhtml] + content;
-	return element;
+		if (typeof(content) != "string")
+		    element.appendChild(content);
+		else 
+		    element[innerhtml] = element[innerhtml] + content;
+		return element;
     };    
 
     return a
