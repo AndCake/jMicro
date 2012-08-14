@@ -81,21 +81,21 @@ jMicro = function () {
     };
 
     a.create = function(tagName, attributes) {
-        var element = document.createElement(tagName),all;
-	for(all in attributes) 
-	    element[all] = attributes[all];
-	element = a.extend(element, this);
-	return element;
+       var element = document.createElement(tagName),all;
+	   for(all in attributes) 
+	       element[all] = attributes[all];
+	   element = a.extend(element, this);
+	   return element;
     };
     
     a.add = function(content) {
-        var element = this;
-	if (typeof(content) != "string")
-	    element.appendChild(content);
-	else 
-	    element[innerhtml] = element[innerhtml] + content;
-	return element;
-    };    
+       var element = this;
+	   if (typeof(content) != "string")
+	       element.appendChild(content);
+	   else 
+	       element[innerhtml] = element[innerhtml] + content;
+	   return element;
+    };
 
     return a
 }();
